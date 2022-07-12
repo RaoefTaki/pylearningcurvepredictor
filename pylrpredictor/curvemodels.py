@@ -7,7 +7,7 @@ from scipy.optimize import curve_fit, leastsq, fmin_bfgs, fmin_l_bfgs_b, nnls
 import lmfit
 import logging
 from scipy.special import logsumexp
-from curvefunctions import all_models
+from pylrpredictor.curvefunctions import all_models
 
 def recency_weights(num):
     if num == 1:
