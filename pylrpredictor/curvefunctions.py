@@ -109,7 +109,6 @@ def loglog_linear(x, a, b):
     x = np.log(x)
     return np.log(a*x + b)
 all_models["loglog_linear"] = loglog_linear
-model_defaults["loglog_linear"] = {"a": 1.0, "b": 1.0}  # TODO: wasn't present, so I added default initial values
 display_name_mapping["loglog_linear"] = "log log linear"
 
 
