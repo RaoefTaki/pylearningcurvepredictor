@@ -234,12 +234,12 @@ class MLCurveModel(CurveModel):
                 sigma = self.ml_sigma(x, y, popt, weights)
                 self.ml_params = np.append(popt, [sigma])
 
-                logging.info("leastsq successful for model %s" % self.function.__name__)
+                print("leastsq successful for model %s" % self.function.__name__)
 
                 return True
             else:
-                logging.warn("leastsq NOT successful for model %s, msg: %s" % (self.function.__name__, msg))
-                logging.warn("best parameters found: " + str(popt))
+                print("leastsq NOT successful for model %s, msg: %s" % (self.function.__name__, msg))
+                print("best parameters found: " + str(popt))
                 return False
         except Exception as e:
             print(e)
@@ -281,18 +281,18 @@ class MLCurveModel(CurveModel):
                                             bounds=bounds,
                                             approx_grad=True)
             if info["warnflag"] != 0:
-                logging.warn("BFGS not converged! (warnflag %d) for model %s" % (info["warnflag"], self.name))
-                logging.warn(info)
+                print("BFGS not converged! (warnflag %d) for model %s" % (info["warnflag"], self.name))
+                print(info)
                 return False
 
             if popt is None:
                 return False
             if any(np.isnan(popt)):
-                logging.info("bfgs NOT successful for model %s, parameter NaN" % self.name)
+                print("bfgs NOT successful for model %s, parameter NaN" % self.name)
                 return False
             sigma = self.ml_sigma(x, y, popt, weights)
             self.ml_params = np.append(popt, [sigma])
-            logging.info("bfgs successful for model %s" % self.name)
+            print("bfgs successful for model %s" % self.name)
             return True
         except:
             return False
@@ -354,7 +354,7 @@ class MCMCCurveModel(CurveModel):
     def fit(self, x, y):
         try:
             if self.ml_curve_model.fit(x, y):
-                logging.info("ML fit: " + str(self.ml_curve_model.ml_params))
+                print("ML fit: " + str(self.ml_curve_model.ml_params))
                 self.fit_mcmc(x, y)
                 return True
             else:
@@ -574,7 +574,7 @@ class LinearCurveModel(CurveModel):
 
     def __init__(self, *arg, **kwargs):
         if "default_vals" in kwargs:
-            logging.warn("default values not needed for the linear model.")
+            print("default values not needed for the linear model.")
         kwargs["default_vals"] = {"a": 0, "b": 0}
         kwargs["min_vals"] = {"a": 0}
         super(LinearCurveModel, self).__init__(
@@ -1104,7 +1104,7 @@ class MlCurveMixtureModel(object):
                 model_weights = model_weights / model_weights.sum()
                 fit_models = new_fit_models
                 for model_weight, model in zip(model_weights, fit_models):
-                    logging.debug("%s %f" % (model.function.__name__, model_weight))
+                    print("%s %f" % (model.function.__name__, model_weight))
             
             #print(model_weights)
             self.model_weights = model_weights

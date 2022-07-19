@@ -69,7 +69,7 @@ class CurveModelEnsemble(Ensemble):
                 self.fit_models.append(model)
 
         if len(self.fit_models) == 0:
-            logging.warn("EnsembleCurveModel couldn't fit any models!!!")
+            print("EnsembleCurveModel couldn't fit any models!!!")
             return False
 
         model_log_likelihoods = self._map(
@@ -157,7 +157,7 @@ class CurveEnsemble(Ensemble):
                 self.fit_models.append(model)
 
         if len(self.fit_models) == 0:
-            logging.warn("EnsembleCurveModel couldn't fit any models!!!")
+            print("EnsembleCurveModel couldn't fit any models!!!")
             return
 
         #Now we interpret each theta as a separate model
